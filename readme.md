@@ -13,6 +13,8 @@ curl -X POST \
   http://localhost:8080/cars
 
 curl http://localhost:8080/dummyerrors
+curl http://localhost:8080/memoryLeak
+curl http://localhost:8080/memoryLeak/release
 
 # 停止
 docker-compose down
