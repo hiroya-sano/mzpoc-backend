@@ -29,7 +29,8 @@ docker-compose down
 
 ```bash
 # 接続(AKS)
-endpoint=mz12poc.postgres.database.azure.com
+endpoint=mz12poc.postgres.database.azure.com            # ULS環境
+endpoint=cloudinfra-dev-db.postgres.database.azure.com  # MC環境
 user=postgreuser
 password=Password1234
 psql "host=${endpoint} port=5432 dbname=postgres user=${user} password=${password} sslmode=require"
