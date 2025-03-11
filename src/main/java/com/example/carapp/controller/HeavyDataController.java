@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.carapp.dto.HeavyDataJoinDto;
-import com.example.carapp.service.HeavyDataService;
+import com.example.carapp.model.HeavyData;
+import com.example.carapp.repository.HeavyDataRepository;
 
 import java.util.List;
 
@@ -18,15 +18,23 @@ import java.util.List;
 public class HeavyDataController {
 
     private static final Logger logger = LoggerFactory.getLogger(HeavyDataController.class);
+    private static final int ROW = 50000;
 
     @Autowired
-    private HeavyDataService heavyDataService;
+    private HeavyDataRepository heavyDataRepository;
 
     @GetMapping
-    public ResponseEntity<?> getHeavyData(@RequestParam(value = "description", required = true) String description) {
-        List<HeavyDataJoinDto> hd; 
-        hd = heavyDataService.getHeavyDataByDescription(description);
-        logger.info("Get heavy data Called. {}", hd);
-        return ResponseEntity.ok(hd);
+    public ResponseEntity<?> getHeavyData() {
+        try {
+            List<HeavyData> hds;
+            logger.info("Get heavy data Called.");
+            hds = heavyDataRepository.findAll(ROW);
+            logger.info("Getted heavy data. {}", hds);
+            return ResponseEntity.ok(hds);
+        } catch (Exception e) {
+            logger.error("Error while cte: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error retrieving while cte: " + e.getMessage());
+        }
     }
 }
