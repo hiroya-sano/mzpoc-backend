@@ -15,14 +15,14 @@ curl -X POST \
   http://localhost:8080/cars
 
 curl http://localhost:8080/dummyerrors
+
+curl http://localhost:8080/sleep
+curl http://localhost:8080/sleep/multi
+
 curl http://localhost:8080/memoryLeak
 curl http://localhost:8080/memoryLeak/release
 
-curl http://localhost:8080/fullscan
-curl http://localhost:8080/fullscan?description=hit
-
 curl http://localhost:8080/heavyData
-curl http://localhost:8080/heavyData?description=hit
 
 # 停止
 docker-compose down

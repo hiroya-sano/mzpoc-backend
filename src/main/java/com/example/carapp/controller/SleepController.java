@@ -20,10 +20,24 @@ import java.lang.Thread;
 public class SleepController {
 
     private static final Logger logger = LoggerFactory.getLogger(SleepController.class);
-    private static final int SLEEP_MS = 100;
+    private static final int SLEEP_MS = 1000;
 
     @GetMapping
     public ResponseEntity<?> sleep() {
+        try {
+            List<Car> sleep = new ArrayList<>();
+            Thread.sleep(SLEEP_MS);
+            logger.info("Speel Called.");
+            return ResponseEntity.ok(sleep);
+        } catch (Exception e) {
+            logger.error("Error during Sleep Called.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Car registration failed: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/multi")
+    public ResponseEntity<?> sleepMulti() {
         try {
             List<Car> sleep = new ArrayList<>();
             Thread.sleep(SLEEP_MS);
