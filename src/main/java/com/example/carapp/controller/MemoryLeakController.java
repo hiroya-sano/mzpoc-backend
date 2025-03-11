@@ -23,16 +23,19 @@ public class MemoryLeakController {
     private static final List<byte[]> leakList = new ArrayList<>();
 
     @GetMapping
-    public String leakMemory() {
+    public ResponseEntity<?> leakMemory() {
+        List<Car> ml = new ArrayList<>();
         leakList.add(new byte[100 * 1024 * 1024]);    // ヒープ圧迫
-        logger.info("Memory leak Called.");
-        return "Allocated " + (leakList.size() * 100) + " MB of memory.";
+        logger.info("Memory leak Called. Allocated " + (leakList.size() * 100) + " MB of memory.");
+        return ResponseEntity.ok(ml);
     }
 
     @GetMapping("/release")
-    public String release() {
+    public ResponseEntity<?> release() {
+        List<Car> ml = new ArrayList<>();
         leakList.clear();
         System.gc();
-        return "Memory released.";
+        logger.info("Memory released.");
+        return ResponseEntity.ok(ml);
     }
 }

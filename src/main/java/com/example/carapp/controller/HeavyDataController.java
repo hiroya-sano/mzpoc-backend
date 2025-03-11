@@ -23,8 +23,10 @@ public class HeavyDataController {
     private HeavyDataService heavyDataService;
 
     @GetMapping
-    public List<HeavyDataJoinDto> getHeavyData(@RequestParam(value = "description", required = true) String description) {
-        logger.info("Get heavy data Called.");
-        return heavyDataService.getHeavyDataByDescription(description);
+    public ResponseEntity<?> getHeavyData(@RequestParam(value = "description", required = true) String description) {
+        List<HeavyDataJoinDto> hd; 
+        hd = heavyDataService.getHeavyDataByDescription(description);
+        logger.info("Get heavy data Called. {}", hd);
+        return ResponseEntity.ok(hd);
     }
 }
