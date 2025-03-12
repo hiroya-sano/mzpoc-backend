@@ -18,7 +18,7 @@ import java.util.List;
 public class HeavyDataController {
 
     private static final Logger logger = LoggerFactory.getLogger(HeavyDataController.class);
-    private static final int ROW = 50000;
+    private static final int DEPTH = 9;
 
     @Autowired
     private HeavyDataRepository heavyDataRepository;
@@ -28,7 +28,7 @@ public class HeavyDataController {
         try {
             List<HeavyData> hds;
             logger.info("Get heavy data Called.");
-            hds = heavyDataRepository.findAll(ROW);
+            hds = heavyDataRepository.findAll(DEPTH);
             logger.info("Getted heavy data. {}", hds);
             return ResponseEntity.ok(hds);
         } catch (Exception e) {
