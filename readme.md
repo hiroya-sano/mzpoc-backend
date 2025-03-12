@@ -24,6 +24,9 @@ curl http://localhost:8080/memoryLeak/release
 
 curl http://localhost:8080/heavyData
 
+curl http://localhost:8080/cpuload
+curl http://localhost:8080/cpuload?n=80
+
 # 停止
 docker-compose down
 ```
