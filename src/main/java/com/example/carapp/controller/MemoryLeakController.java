@@ -24,10 +24,15 @@ public class MemoryLeakController {
 
     @GetMapping
     public ResponseEntity<?> leakMemory() {
-        List<Car> ml = new ArrayList<>();
-        leakList.add(new byte[100 * 1024 * 1024]);    // ヒープ圧迫
-        logger.info("Memory leak Called. Allocated " + (leakList.size() * 100) + " MB of memory.");
-        return ResponseEntity.ok(ml);
+        try {
+            List<Car> ml = new ArrayList<>();
+            leakList.add(new byte[100 * 1024 * 1024]);    // ヒープ圧迫
+            logger.info("Memory leak Called. Allocated " + (leakList.size() * 100) + " MB of memory.");
+            return ResponseEntity.ok(ml);
+        } catch (Exception e) {
+            logger.error("Error while heap allocation: {}", e.getMessage(), e);
+            throw new RuntimeException("Intentional heap allocation error(memory leak).");
+        }
     }
 
     @GetMapping("/release")

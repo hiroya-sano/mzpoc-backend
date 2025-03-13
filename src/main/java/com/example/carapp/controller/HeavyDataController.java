@@ -33,8 +33,7 @@ public class HeavyDataController {
             return ResponseEntity.ok(hds);
         } catch (Exception e) {
             logger.error("Error while cte: {}", e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error retrieving while cte: " + e.getMessage());
+            throw new RuntimeException("Intentional heavy data query error.");
         }
     }
 }

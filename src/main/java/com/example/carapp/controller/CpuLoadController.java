@@ -20,11 +20,16 @@ public class CpuLoadController {
     public ResponseEntity<String> fibonacci(@RequestParam(name = "n", defaultValue = "40", required = false) int n) {
         logger.info("Called CPU load.");
 
-        long start = System.currentTimeMillis();
-        long result = fib(n);
-        long duration = System.currentTimeMillis() - start;
-        String response = String.format("fib(%d) = %d, 計算時間: %d ms", n, result, duration);
-        return ResponseEntity.ok(response);
+        try {
+            long start = System.currentTimeMillis();
+            long result = fib(n);
+            long duration = System.currentTimeMillis() - start;
+            String response = String.format("fib(%d) = %d, 計算時間: %d ms", n, result, duration);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            logger.error("Error while Fibonacci sequence: {}", e.getMessage(), e);
+            throw new RuntimeException("Intentional Fibonacci sequence error.");
+        }
     }
 
     private long fib(int n) {
