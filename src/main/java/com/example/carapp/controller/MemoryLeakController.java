@@ -28,10 +28,16 @@ public class MemoryLeakController {
         try {
             while (true) {
                 byte[] data = new byte[10 * 1024 * 1024];
+                leakList.add(data);
                 logger.info("Allocated " + (10 * (++counter)) + " MB");
+
+                if (counter % 10 == 0) {
+                    leakList.clear();
+                    logger.info("Cleared leakList after " + counter + " allocations");
+                }
                 
-                // System.gc();
-                Thread.sleep(100);
+                System.gc();
+                Thread.sleep(2000);
             }
         } catch (OutOfMemoryError e) {
             logger.error("OutOfMemoryError: {}", e.getMessage(), e);
@@ -41,7 +47,7 @@ public class MemoryLeakController {
             throw new RuntimeException("Intentional memory leak error(memory leak).");
         }
     }
-    
+        
     @GetMapping("/release")
     public ResponseEntity<?> release() {
         List<Car> ml = new ArrayList<>();
