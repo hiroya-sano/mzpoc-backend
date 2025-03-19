@@ -30,7 +30,7 @@ public class MemoryLeakController {
                 byte[] data = new byte[10 * 1024 * 1024];
                 logger.info("Allocated " + (10 * (++counter)) + " MB");
                 
-                System.gc();
+                // System.gc();
                 Thread.sleep(100);
             }
         } catch (OutOfMemoryError e) {
