@@ -27,9 +27,9 @@ public class MemoryLeakController {
         int counter = 0;
         try {
             while (true) {
-                byte[] data = new byte[100 * 1024 * 1024];
+                byte[] data = new byte[10 * 1024 * 1024];
                 leakList.add(data);
-                logger.info("Allocated " + (100 * (++counter)) + " MB");
+                logger.info("Allocated " + (10 * (++counter)) + " MB");
 
                 System.gc();
 
