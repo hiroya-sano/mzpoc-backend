@@ -28,15 +28,9 @@ public class MemoryLeakController {
         try {
             while (true) {
                 byte[] data = new byte[10 * 1024 * 1024];
-                leakList.add(data);
                 logger.info("Allocated " + (10 * (++counter)) + " MB");
-
-                if (counter % 10 == 0) {
-                    leakList.clear();
-                    logger.info("Cleared leakList after " + counter + " allocations");
-                }
                 
-                System.gc();
+                // System.gc();
                 Thread.sleep(100);
             }
         } catch (OutOfMemoryError e) {
