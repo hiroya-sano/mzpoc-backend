@@ -31,7 +31,7 @@ public class MemoryLeakController {
                 logger.info("Allocated " + (10 * (++counter)) + " MB");
                 
                 System.gc();
-                Thread.sleep(2000);
+                Thread.sleep(100);
             }
         } catch (OutOfMemoryError e) {
             logger.error("OutOfMemoryError: {}", e.getMessage(), e);
